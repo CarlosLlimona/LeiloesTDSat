@@ -48,3 +48,5 @@ ALTER TABLE `produtos`
 ALTER TABLE `produtos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
+
+select * from produtos;
