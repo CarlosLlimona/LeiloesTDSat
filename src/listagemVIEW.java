@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -138,7 +139,14 @@ public class listagemVIEW extends javax.swing.JFrame {
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
         
-        ProdutosDAO produtosdao = new ProdutosDAO();
+        if(id.isEmpty() || verificarCampo(id)==false){
+            JOptionPane.showMessageDialog(null, "Insira um valor ID válido");
+        }
+        else{
+           // ProdutosDAO produtosdao = new ProdutosDAO();
+        }
+        
+        
         
         //produtosdao.venderProduto(Integer.parseInt(id));
         listarProdutos();
@@ -222,4 +230,15 @@ public class listagemVIEW extends javax.swing.JFrame {
         }
     
     }
+    
+    private boolean verificarCampo(String id){
+        boolean status = false;
+        boolean teste = id.matches("[0-9]{1,}");
+        
+        if(teste ==true){
+            status = true;
+        }
+        return status;
+    }
+    
 }

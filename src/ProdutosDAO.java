@@ -146,6 +146,33 @@ public class ProdutosDAO {
         
     }
     
+    public ProdutosDTO buscarProduto(int id){
+        
+        String busca = "SELECT * FROM produtos WHERE id=?";
+        conn = new conectaDAO().connectDB();
+        
+        try{
+            prep = this.conn.prepareStatement(busca);
+            prep.setInt(1, id);
+            
+            resultset = prep.executeQuery();
+            ProdutosDTO produto = new ProdutosDTO();
+            resultset.next();
+            
+            produto.setId(id);
+            produto.setNome(resultset.getString("nome"));
+            produto.setStatus(resultset.getString("status"));
+            produto.setValor(resultset.getInt("valor"));
+            return produto;
+        }
+        catch(SQLException e){
+            System.out.println("erro " +e.getMessage());
+                return null;
+        }
+        
+        
+    }
+    
     
         
 }
