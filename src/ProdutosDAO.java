@@ -117,7 +117,7 @@ public class ProdutosDAO {
         
     }
     
-    public List <ProdutosDTO> listarProdutosVendidos(){
+    public ArrayList <ProdutosDTO> listarProdutosVendidos(){
         
         String busca = "SELECT * FROM produtos WHERE status LIKE ?";
         conn = new conectaDAO().connectDB();
@@ -126,18 +126,18 @@ public class ProdutosDAO {
              prep = this.conn.prepareStatement(busca);
              prep.setString(1, "Vendido");
              resultset = prep.executeQuery();
-             List<ProdutosDTO> lista = new ArrayList<>();
+            
              
              while(resultset.next()){
                  ProdutosDTO produto = new ProdutosDTO();
                  produto.setId(resultset.getInt("id"));
                  produto.setNome(resultset.getString("nome"));
                  produto.setValor(resultset.getInt("valor"));
-                 produto.setStatus(resultset.getString("status"));
+                 //produto.setStatus(resultset.getString("status"));
                  
-                 lista.add(produto);
+                 listagem.add(produto);
              }
-             return lista;
+             return listagem;
         }
         catch(SQLException e){
             System.out.println("erro " +e.getMessage());

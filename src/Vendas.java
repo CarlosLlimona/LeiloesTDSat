@@ -1,3 +1,8 @@
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.util.List;
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +19,7 @@ public class Vendas extends javax.swing.JFrame {
      */
     public Vendas() {
         initComponents();
+        listar();
     }
 
     /**
@@ -36,7 +42,7 @@ public class Vendas extends javax.swing.JFrame {
 
         tblVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "Nome", "Valor"
@@ -111,4 +117,31 @@ public class Vendas extends javax.swing.JFrame {
     private javax.swing.JLabel lblItens;
     private javax.swing.JTable tblVenda;
     // End of variables declaration//GEN-END:variables
+
+private void listar(){
+    try{
+        ProdutosDAO produtosdao = new ProdutosDAO();
+        DefaultTableModel model = (DefaultTableModel) tblVenda.getModel();
+        model.setNumRows(0);
+        
+        List<ProdutosDTO> lista = produtosdao.listarProdutosVendidos();
+        
+         for(int i = 0; i < lista.size(); i++){
+                model.addRow(new Object[]{
+                    lista.get(i).getId(),
+                    lista.get(i).getNome(),
+                    lista.get(i).getValor(),
+                    lista.get(i).getStatus()
+                });
+            }
+    }catch(Exception e){
+        
+    }
+    
+}
+
+
+
+
+
 }
