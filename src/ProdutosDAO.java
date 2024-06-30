@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class ProdutosDAO {
@@ -113,6 +114,35 @@ public class ProdutosDAO {
          JOptionPane.showMessageDialog(null,"erro de conexão com o sistema");  
        }
        return status;
+        
+    }
+    
+    public List <ProdutosDTO> listarProdutosVendidos(){
+        
+        String busca = "SELECT * FROM produtos WHERE status LIKE ?";
+        conn = new conectaDAO().connectDB();
+        
+        try{
+             prep = this.conn.prepareStatement(busca);
+             prep.setString(1, "Vendido");
+             resultset = prep.executeQuery();
+             List<ProdutosDTO> lista = new ArrayList<>();
+             
+             while(resultset.next()){
+                 ProdutosDTO produto = new ProdutosDTO();
+                 produto.setId(resultset.getInt("id"));
+                 produto.setNome(resultset.getString("nome"));
+                 produto.setValor(resultset.getInt("valor"));
+                 produto.setStatus(resultset.getString("status"));
+                 
+                 lista.add(produto);
+             }
+             return lista;
+        }
+        catch(SQLException e){
+            System.out.println("erro " +e.getMessage());
+            return null;
+        }
         
     }
     
