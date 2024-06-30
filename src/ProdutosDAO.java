@@ -89,6 +89,33 @@ public class ProdutosDAO {
     }
     
     
+    public boolean venderProduto(ProdutosDTO produto){
+        
+        boolean status=false;
+        String venda = "UPDATE produtos SET status =? WHERE id=?";
+        conn = new conectaDAO().connectDB();
+        
+       if(conn!=null){
+           try{
+               prep = this.conn.prepareStatement(venda);
+               prep.setString(1, "Vendido");
+               prep.setInt(2, produto.getId());
+               prep.executeUpdate();
+               status = true;
+           }
+           catch(SQLException e){
+               System.out.println("Erro :" + e.getMessage());
+               return status;
+           }
+           
+       }
+       else{
+         JOptionPane.showMessageDialog(null,"erro de conexão com o sistema");  
+       }
+       return status;
+        
+    }
+    
     
         
 }
